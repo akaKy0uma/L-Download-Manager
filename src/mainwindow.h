@@ -9,6 +9,7 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+class QTreeWidgetItem;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,6 +19,13 @@ public:
     ~MainWindow();
 
 private:
+    void setupUi();
+
+private:
     Ui::MainWindow *ui;
+
+    QTreeWidgetItem *m_allTasksItem;
+    QTreeWidgetItem *m_completedTasksItem;
+    QTreeWidgetItem *m_downloadingTasksItem;
 };
 #endif // MAINWINDOW_H
