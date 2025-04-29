@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "DownloadManager.h"
+
 #include <QDebug>
 #include <QString>
 
@@ -9,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     setupUi();
+
+    m_downloadManager = new DownloadManager;
 }
 
 MainWindow::~MainWindow()

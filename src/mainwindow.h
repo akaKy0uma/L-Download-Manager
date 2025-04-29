@@ -10,6 +10,7 @@ class MainWindow;
 QT_END_NAMESPACE
 
 class QTreeWidgetItem;
+class DownloadManager;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,5 +28,7 @@ private:
     QTreeWidgetItem *m_allTasksItem;
     QTreeWidgetItem *m_completedTasksItem;
     QTreeWidgetItem *m_downloadingTasksItem;
+
+    DownloadManager *m_downloadManager;
 };
 #endif // MAINWINDOW_H

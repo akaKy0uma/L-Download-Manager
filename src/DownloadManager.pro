@@ -20,10 +20,14 @@ CONFIG(debug, debug|release) {
 }
 
 SOURCES += \
+    DownloadManager.cpp \
+    DownloadTask.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    DownloadManager.h \
+    DownloadTask.h \
     mainwindow.h
 
 FORMS += \
