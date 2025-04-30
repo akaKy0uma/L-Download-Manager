@@ -21,6 +21,10 @@ public:
 
 private:
     void setupUi();
+    void setupConnection();
+
+private slots:
+    void onAddNewTask();
 
 private:
     Ui::MainWindow *ui;
@@ -30,5 +34,6 @@ private:
     QTreeWidgetItem *m_downloadingTasksItem;
 
     DownloadManager *m_downloadManager;
+    QString m_defaultSavePath;
 };
 #endif // MAINWINDOW_H

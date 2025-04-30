@@ -9,7 +9,7 @@ DownloadManager::DownloadManager(QObject *parent)
 
 void DownloadManager::addTask(const QUrl &url, const QString &savePath)
 {
-
+    qDebug() << "New task added: URL =" << url << ", Save Path =" << savePath;
 }
 
 void DownloadManager::pauseTask(int index)

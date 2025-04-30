@@ -22,15 +22,18 @@ CONFIG(debug, debug|release) {
 SOURCES += \
     DownloadManager.cpp \
     DownloadTask.cpp \
+    NewTaskDialog.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     DownloadManager.h \
     DownloadTask.h \
+    NewTaskDialog.h \
     mainwindow.h
 
 FORMS += \
+    NewTaskDialog.ui \
     mainwindow.ui
 
 TRANSLATIONS += \
