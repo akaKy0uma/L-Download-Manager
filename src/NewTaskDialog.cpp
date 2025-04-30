@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QFileDialog>
+#include <QMessageBox>
 
 NewTaskDialog::NewTaskDialog(QWidget *parent, QString defaultPath)
     : QDialog(parent)
@@ -20,10 +21,22 @@ NewTaskDialog::~NewTaskDialog()
 
 void NewTaskDialog::on_btnOK_clicked()
 {
-    if (ui->url->text().isEmpty() || ui->path->text().isEmpty()) {
-        qDebug() << "URL or save path is empty!";
+    if (ui->url->text().isEmpty()) {
+        QMessageBox::warning(this, tr("Invalid Input"), tr("Please enter a valid URL."));
         return;
     }
+
+    if (ui->path->text().isEmpty()) {
+        QMessageBox::warning(this, tr("Invalid Input"), tr("Please select a valid save path."));
+        return;
+    }
+
+    QUrl url(ui->url->text());
+    if (!url.isValid() || url.scheme().isEmpty()) {
+        QMessageBox::warning(this, tr("Invalid URL"), tr("The URL you entered is not valid."));
+        return;
+    }
+
     this->accept();
 }
 
