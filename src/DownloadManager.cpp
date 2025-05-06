@@ -1,6 +1,8 @@
 #include "DownloadManager.h"
 #include "DownloadTask.h"
 
+#include <QMessageBox>
+
 DownloadManager::DownloadManager(QObject *parent)
     : QObject{parent}
 {
@@ -9,7 +11,16 @@ DownloadManager::DownloadManager(QObject *parent)
 
 void DownloadManager::addTask(const QUrl &url, const QString &savePath)
 {
-    qDebug() << "New task added: URL =" << url << ", Save Path =" << savePath;
+    if(m_taskMap.count(url.toDisplayString()))
+    {
+        QMessageBox::warning(NULL, tr("Duplicate Task"), tr("This task already exists."));
+        return;
+    }
+
+    DownloadTask* task = new DownloadTask(url, savePath);
+    m_taskMap[url.toDisplayString()] = task;
+
+    task->start();
 }
 
 void DownloadManager::pauseTask(int index)

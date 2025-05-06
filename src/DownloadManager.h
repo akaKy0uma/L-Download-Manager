@@ -2,6 +2,7 @@
 #define DOWNLOADMANAGER_H
 
 #include <QObject>
+#include <QMap>
 
 class DownloadTask;
 class DownloadManager : public QObject
@@ -19,7 +20,7 @@ signals:
     void taskRemoved(int index);
 
 private:
-    QList<DownloadTask *> m_tasks;
+    QMap<QString, DownloadTask *> m_taskMap;
 };
 
 #endif // DOWNLOADMANAGER_H

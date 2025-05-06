@@ -7,6 +7,15 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
+enum TaskStatus {
+    Stopped = 0,
+    Pending,
+    Downloading,
+    Completed,
+    Failed
+};
+
+class DownloadTaskWorker;
 class DownloadTask : public QObject
 {
     Q_OBJECT
@@ -16,6 +25,7 @@ public:
     void pause();
     void resume();
     void cancel();
+    int getStatus();
 
 signals:
     void progress(qint64 bytesReceived, qint64 bytesTotal);
@@ -34,6 +44,7 @@ private:
     QNetworkAccessManager m_networkManager;
     QNetworkReply *m_reply;
     bool m_paused;
+    int m_status;
 };
 
 #endif // DOWNLOADTASK_H
