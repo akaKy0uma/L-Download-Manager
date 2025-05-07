@@ -2,6 +2,7 @@
 #include "DownloadTask.h"
 
 #include <QMessageBox>
+#include <QThread>
 
 DownloadManager::DownloadManager(QObject *parent)
     : QObject{parent}
@@ -17,10 +18,15 @@ void DownloadManager::addTask(const QUrl &url, const QString &savePath)
         return;
     }
 
-    DownloadTask* task = new DownloadTask(url, savePath);
-    m_taskMap[url.toDisplayString()] = task;
+    qDebug() << __FUNCTION__ << QThread::currentThread();
 
-    task->start();
+    DownloadTask *task = new DownloadTask(url, savePath, nullptr);
+    // connect(task, &DownloadTask::progress, this, &DownloadManager::onTaskProgress);
+    // connect(task, &DownloadTask::finished, this, &DownloadManager::onTaskFinished);
+    // connect(task, &DownloadTask::error, this, &DownloadManager::onTaskError);
+
+    m_taskMap.insert(url.toDisplayString(), task);
+    task->startInThread();
 }
 
 void DownloadManager::pauseTask(int index)

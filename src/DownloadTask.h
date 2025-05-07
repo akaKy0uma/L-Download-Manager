@@ -20,12 +20,14 @@ class DownloadTask : public QObject
 {
     Q_OBJECT
 public:
-    explicit DownloadTask(const QUrl &url, const QString &savePath, QObject *parent = nullptr);
+    explicit DownloadTask(const QUrl &url, const QString &saveDirPath, QObject *parent = nullptr);
     void start();
     void pause();
     void resume();
     void cancel();
     int getStatus();
+
+    void startInThread();
 
 signals:
     void progress(qint64 bytesReceived, qint64 bytesTotal);
@@ -34,6 +36,7 @@ signals:
 
 private slots:
     void onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+    void onReadyRead();
     void onFinished();
     void onError(QNetworkReply::NetworkError code);
 

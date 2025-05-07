@@ -12,6 +12,9 @@ NewTaskDialog::NewTaskDialog(QWidget *parent, QString defaultPath)
     ui->setupUi(this);
     ui->path->setText(defaultPath);
     ui->isDefault->setCheckState(Qt::CheckState::Checked);
+
+    // 测试链接
+    ui->url->setText("http://vjs.zencdn.net/v/oceans.mp4");
 }
 
 NewTaskDialog::~NewTaskDialog()
