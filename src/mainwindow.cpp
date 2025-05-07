@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setupUi();
     setupConnection();
-    m_defaultSavePath = QDir::currentPath() + "/download";
+    m_defaultSavePath = QDir::currentPath() + "/download/";
 
     m_downloadManager = new DownloadManager;
 }
