@@ -6,6 +6,8 @@
 #include <QFile>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QMutex>
+#include <QElapsedTimer>
 
 enum TaskStatus {
     Stopped = 0,
@@ -29,25 +31,34 @@ public:
 
     void startInThread();
 
+    qint64 getFileSize();
+
 signals:
     void progress(qint64 bytesReceived, qint64 bytesTotal);
     void finished();
     void error(const QString &errorString);
 
 private slots:
-    void onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
-    void onReadyRead();
-    void onFinished();
-    void onError(QNetworkReply::NetworkError code);
+    void onChunkDownloadProgress(int chunk, qint64 bytesReceived, qint64 bytesTotal);
+    void onChunkReadyRead(int chunk, const QByteArray& data);
+    void onChunkFinished(int chunk);
+    void onChunkError(int chunk, int code);
 
 private:
     QUrl m_url;
     QString m_savePath;
     QFile m_file;
     QNetworkAccessManager m_networkManager;
-    QNetworkReply *m_reply;
     bool m_paused;
     int m_status;
+
+    int m_totalReceiedByte;
+    int m_totalByte;
+    QMutex* m_mutex;
+    int m_numThreads;
+    int m_chunkMask;
+
+    QElapsedTimer* elapseTimer;
 };
 
 #endif // DOWNLOADTASK_H
